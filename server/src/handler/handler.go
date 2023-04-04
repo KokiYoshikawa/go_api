@@ -12,7 +12,7 @@ import (
 var (
 	// mysqlに接続
 	db, err = sql.Open("mysql", "admin:admin123@tcp(localhost:3306)/go_api")
-	dbmap   = &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{"InnoDB", "UTF8"}}
+	dbmap   = &gorp.DbMap{Db: db, Dialect: gorp.MySQLDialect{}}
 )
 
 type User struct {
@@ -30,7 +30,7 @@ func GetUser() echo.HandlerFunc {
 		id := c.Param("id")
 		var user = []User{}
 
-		dbmap.Select(&user, "SELECT * FROM users WHERE id ="+"'"+id+"'"+";")
+		dbmap.Select(&user, "SELECT * FROM user WHERE id ="+"'"+id+"'"+";")
 		return c.JSON(http.StatusOK, user)
 	}
 }
@@ -43,7 +43,7 @@ func GetUsers() echo.HandlerFunc {
 	}
 	return func(c echo.Context) error {
 		var users = []User{}
-		dbmap.Select(&users, "SELECT * FROM users;")
+		dbmap.Select(&users, "SELECT * FROM user;")
 		return c.JSON(http.StatusOK, users)
 	}
 }

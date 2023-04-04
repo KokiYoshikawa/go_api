@@ -4,7 +4,7 @@ import (
 	"github.com/labstack/echo"
 	"github.com/labstack/echo/middleware"
 
-	"go_api/handler" // handlerパッケージのインポート
+	"go_api/server/src/handler" // handlerパッケージのインポート
 )
 
 func main() {
