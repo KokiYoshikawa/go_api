@@ -8,11 +8,10 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./data/db:/var/lib/mysql
+        - ./sql/:/docker-entrypoint-initdb.d/
     environment:
-      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
       MYSQL_DATABASE: go_api
-      MYSQL_USER: admin
-      MYSQL_PASSWORD: admin123
       TZ: "Asia/Tokyo"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
