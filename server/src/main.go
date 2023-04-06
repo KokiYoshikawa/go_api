@@ -16,7 +16,7 @@ func main() {
 	echo.Use(middleware.Recover())
 
 	// ルーティング
-	echo.GET("/go_api/:id", handler.GetUser())
+	echo.GET("/go_api/:user_id", handler.GetUser())
 	echo.GET("/go_api/all", handler.GetUsers())
 
 	// サーバー起動、ポート番号の指定

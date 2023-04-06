@@ -31,7 +31,7 @@ func GetUser() echo.HandlerFunc {
 		id := c.Param("user_id")
 		var user = []User{}
 
-		dbmap.Select(&user, "SELECT * FROM user WHERE id ="+"'"+id+"'"+";")
+		dbmap.Select(&user, "SELECT * FROM user WHERE user_id ="+"'"+id+"'"+";")
 		return c.JSON(http.StatusOK, user)
 	}
 }
