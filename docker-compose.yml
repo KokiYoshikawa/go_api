@@ -1,6 +1,29 @@
 version: '3.9'
 
 services:
+  go_api_front:
+    build:
+      context: .
+      dockerfile: ./front/Dockerfile
+    container_name: go_api_front
+    tty: true
+    volumes:
+      - ./front:/app/react
+    command: sh -c "cd /app/react && yarn install && yarn start"
+    ports:
+      - 3000:3000
+
+  go_api_server:
+    build:
+      context: .
+      dockerfile: ./server/Dockerfile
+    container_name: go_api_server
+    ports:
+      - 8000:8000
+    tty: true
+    volumes:
+      - ./server:/app/go
+
   go_api_mysql:
     image: mysql:8.0.28
     platform: linux/amd64
