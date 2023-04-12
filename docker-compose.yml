@@ -2,27 +2,36 @@ version: '3.9'
 
 services:
   go_api_front:
+    image: go_api_front
     build:
       context: .
-      dockerfile: ./front/Dockerfile
+      dockerfile: ./docker/react/Dockerfile
     container_name: go_api_front
     tty: true
     volumes:
-      - ./front:/app/react
+      - ./front/app:/app/react
     command: sh -c "cd /app/react && yarn install && yarn start"
     ports:
       - 3000:3000
 
   go_api_server:
+    image: go_api_server
     build:
       context: .
-      dockerfile: ./server/Dockerfile
+      dockerfile: ./docker/go/Dockerfile
+    depends_on:
+      - go_api_mysql
     container_name: go_api_server
     ports:
       - 8000:8000
     tty: true
     volumes:
       - ./server:/app/go
+    environment:
+      MYSQL_DATABASE: go_api
+      MYSQL_HOST: go_api_mysql
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
 
   go_api_mysql:
     image: mysql:8.0.28
