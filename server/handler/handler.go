@@ -16,12 +16,12 @@ var (
 )
 
 type User struct {
-	UserId        int    `db:"user_id"`
-	FirstName     string `db:"first_name"`
-	LastName      string `db:"last_name"`
-	FirstNameKana string `db:"first_name_kana"`
-	LastNameKana  string `db:"last_name_kana"`
-	MailAddress   string `db:"mail_address"`
+	UserId        int    `json:"userId" db:"user_id"`
+	FirstName     string `json:"firstName" db:"first_name"`
+	LastName      string `json:"lastName" db:"last_name"`
+	FirstNameKana string `json:"firstNameKana" db:"first_name_kana"`
+	LastNameKana  string `json:"lastNameKana" db:"last_name_kana"`
+	MailAddress   string `json:"mailAddress" db:"mail_address"`
 }
 
 // ユーザ1人のプロフィールを返すメソッド
@@ -32,6 +32,7 @@ func GetUser() echo.HandlerFunc {
 		var user = []User{}
 
 		dbmap.Select(&user, "SELECT * FROM user WHERE user_id ="+"'"+id+"'"+";")
+
 		return c.JSON(http.StatusOK, user)
 	}
 }
