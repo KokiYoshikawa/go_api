@@ -1,24 +1,40 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react';
+import axios from "axios";
 
-function App() {
+type User = {
+  userId: number;
+  firstName: string;
+  lastName: string;
+  firstNameKana: string;
+  lastNameKana: string;
+  mailAddress: string;
+}
+
+const App = () => {
+  const [users, setData] = useState<User[]>();
+
+  useEffect(() => {
+    axios
+    .get("http://localhost:8000/go_api/all")
+    .then((response) => {
+      // データが取得できた時の処理
+      setData(response.data)
+    })
+  }, [])
+
+  if (!users) return null;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
+    <div>
+      {users.map( user => (
+        <p key={user.userId}>
+          <span>{user.firstName}</span>
+          <span>{user.lastName}</span>
+          <span>{user.firstNameKana}</span>
+          <span>{user.lastNameKana}</span>
+          <span>{user.mailAddress}</span>
         </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      ))}
     </div>
   );
 }
