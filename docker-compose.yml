@@ -46,5 +46,3 @@ services:
       MYSQL_ROOT_PASSWORD: root
       MYSQL_ROOT_HOST: '%'
       MYSQL_DATABASE: go_api
-      TZ: "Asia/Tokyo"
-    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
