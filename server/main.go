@@ -4,36 +4,53 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/labstack/echo"
-	"github.com/labstack/echo/middleware"
+	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 
-	"go_api/server/src/handler" // handlerパッケージのインポート
+	"go_api/server/src/user"
 )
 
 func main() {
 	// インスタンスの作成
-	echo := echo.New()
+	e := echo.New()
 
 	// ログなど
-	echo.Use(middleware.Logger())
-	echo.Use(middleware.Recover())
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
-	echo.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+	e.Use(middleware.CORS())
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
 		/* http://localhost:3000からの接続を許可する */
 		AllowOrigins: []string{"http://localhost:3000"},
 		AllowMethods: []string{
 			http.MethodGet,
 			http.MethodPut,
 			http.MethodPost,
+			http.MethodPatch,
+			http.MethodOptions,
 			http.MethodDelete,
+		},
+		AllowHeaders: []string{
+			echo.HeaderAccessControlAllowHeaders,
+			echo.HeaderContentType,
+			echo.HeaderContentLength,
+			echo.HeaderAcceptEncoding,
+			echo.HeaderXCSRFToken,
+			echo.HeaderAuthorization,
 		},
 	}))
 
 	// ルーティング
-	echo.GET("/go_api/:user_id", handler.GetUser())
-	echo.GET("/go_api/all", handler.GetUsers())
+	api := e.Group("/go_api")
+	users := api.Group("/user")
+	{
+		users.GET("/:id", user.GetUser())
+		users.GET("/list", user.GetUsers())
+		users.POST("/create", user.CreateUser())
+		users.DELETE("/delete/:id", user.DeleteUser())
+	}
 
 	// サーバー起動、ポート番号の指定
 	fmt.Println("Starting server at port 8000")
-	echo.Start(":8000")
+	e.Start(":8000")
 }

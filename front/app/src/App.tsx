@@ -1,40 +1,28 @@
-import { useState, useEffect } from 'react';
-import axios from "axios";
-
-type User = {
-  userId: number;
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
-}
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  } from "react-router-dom";
+import Home from './components/Home';
+import UserDetail from './components/User/Detail';
+import UserList from './components/User/List';
+import UserCreate from './components/User/Create';
+import UserDelete from './components/User/Delete';
+import NotFound from './components/NotFound';
 
 const App = () => {
-  const [users, setData] = useState<User[]>();
-
-  useEffect(() => {
-    axios
-    .get("http://localhost:8000/go_api/all")
-    .then((response) => {
-      // データが取得できた時の処理
-      setData(response.data)
-    })
-  }, [])
-
-  if (!users) return null;
-
   return (
     <div>
-      {users.map( user => (
-        <p key={user.userId}>
-          <span>{user.firstName}</span>
-          <span>{user.lastName}</span>
-          <span>{user.firstNameKana}</span>
-          <span>{user.lastNameKana}</span>
-          <span>{user.mailAddress}</span>
-        </p>
-      ))}
+      <Router>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user/:id" element={<UserDetail/>} />
+          <Route path="/user/list" element={<UserList/>} />
+          <Route path="/user/create" element={<UserCreate/>} />
+          <Route path="/user/delete/:id" element={<UserDelete/>} />
+          <Route path="/*" element={<NotFound/>} />
+        </Routes>
+      </Router>
     </div>
   );
 }
