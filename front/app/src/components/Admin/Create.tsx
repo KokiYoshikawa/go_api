@@ -1,4 +1,5 @@
-import { Form, Input, Button} from 'antd'
+import { useNavigate } from 'react-router-dom'
+import { Form, Input, Button, message} from 'antd'
 import axios from "axios";
 
 type AdminUserForm = {
@@ -12,6 +13,8 @@ type AdminUserForm = {
 }
 
 const AdminUserCreate = () => {
+  const navigate = useNavigate();
+  const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminUserForm) => {
     console.log(values)
     axios.post("http://localhost:8000/go_api/admin/create", {
@@ -24,14 +27,27 @@ const AdminUserCreate = () => {
       passWord: values.passWord
     },)
     .then(function (response) {
-      console.log(response);
+      if (response.status === 201) {
+        navigate("/admin/complete", { state: {user:values, word:"登録"} })
+      } else {
+        failure()
+      }
     })
     .catch(function (error) {
       console.log(error);
     });
   }
 
+  const failure = () => {
+    messageApi.open({
+      type: 'error',
+      content: 'ユーザの登録に失敗しました。',
+    });
+  };
+
   return (
+    <>
+    {contextHolder}
     <Form
       labelCol={{ span: 8 }}
       wrapperCol={{ span: 16 }}
@@ -125,6 +141,7 @@ const AdminUserCreate = () => {
         </Button>
       </Form.Item>
     </Form>
+    </>
   );
 }
 

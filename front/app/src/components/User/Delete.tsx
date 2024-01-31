@@ -1,26 +1,21 @@
 import { Form, Button, message} from 'antd'
-import { useLocation } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios";
 
 const UserDelete = ()=> {
   const { state } = useLocation()
+  const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = () => {
     axios.delete(`http://localhost:8000/go_api/user/delete/${state.userId}`, {
       data: {userId: state.userId}}).then(res => {
         if (res.data === 1) {
-          success()
+          navigate("/user/complete", { state: {user:state, word:"削除"} })
         } else {
           error()
         }
    })
   }
-  const success = () => {
-    messageApi.open({
-      type: 'success',
-      content: 'ユーザの削除に成功しました。',
-    });
-  };
 
   const error = () => {
     messageApi.open({
