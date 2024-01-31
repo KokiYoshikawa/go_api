@@ -7,6 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/echo/v4/middleware"
 
+	"go_api/server/src/admin"
 	"go_api/server/src/user"
 )
 
@@ -48,6 +49,14 @@ func main() {
 		users.GET("/list", user.GetUsers())
 		users.POST("/create", user.CreateUser())
 		users.DELETE("/delete/:id", user.DeleteUser())
+	}
+
+	admins := api.Group("/admin")
+	{
+		admins.GET("/:id", admin.GetAdminUser())
+		admins.GET("/list", admin.GetAdminUsers())
+		admins.POST("/create", admin.CreateAdminUser())
+		admins.DELETE("/delete/:id", admin.DeleteAdminUser())
 	}
 
 	// サーバー起動、ポート番号の指定

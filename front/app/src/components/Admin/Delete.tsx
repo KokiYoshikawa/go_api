@@ -2,12 +2,12 @@ import { Form, Button, message} from 'antd'
 import { useLocation } from "react-router-dom"
 import axios from "axios";
 
-const UserDelete = ()=> {
+const AdminUserDelete = ()=> {
   const { state } = useLocation()
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = () => {
-    axios.delete(`http://localhost:8000/go_api/user/delete/${state.userId}`, {
-      data: {userId: state.userId}}).then(res => {
+    axios.delete(`http://localhost:8000/go_api/admin/delete/${state.adminUserId}`, {
+      data: {adminUserId: state.adminUserId}}).then(res => {
         if (res.data === 1) {
           success()
         } else {
@@ -40,6 +40,7 @@ const UserDelete = ()=> {
       <label>姓カナ：{state.firstNameKana}</label>
       <label>名カナ：{state.lastNameKana}</label>
       <label>メールアドレス：{state.mailAddress}</label>
+      <label>権限：{state.rollName}</label>
 
       <Form
         labelCol={{ span: 8 }}
@@ -53,7 +54,7 @@ const UserDelete = ()=> {
           </Button>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" href={`/user/${state.userId}`}>
+          <Button type="primary" htmlType="submit" href={`/admin/${state.adminUserId}`}>
             戻る
           </Button>
         </Form.Item>
@@ -62,4 +63,4 @@ const UserDelete = ()=> {
   )
 }
 
-export default UserDelete;
+export default AdminUserDelete;

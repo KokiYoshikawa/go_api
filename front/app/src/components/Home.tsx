@@ -11,12 +11,22 @@ const Home = () => {
       >
         利用ユーザ一覧
       </Button>
-    </div>
-    <div>
       <Button
         href={"/user/create"}
       >
-        新規登録
+        利用ユーザ新規登録
+      </Button>
+    </div>
+    <div>
+      <Button
+        href={"/admin/list"}
+      >
+        管理ユーザ一覧
+      </Button>
+      <Button
+        href={"/admin/create"}
+      >
+        管理ユーザ新規登録
       </Button>
     </div>
   </>
