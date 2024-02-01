@@ -38,6 +38,11 @@ type AdminUserWithRollName struct {
 	PassWord      string `json:"passWord" db:"pass_word"`
 }
 
+type LoginInfo struct {
+	MailAddress string `json:"mailAddress" db:"mail_address"`
+	PassWord    string `json:"passWord" db:"pass_word"`
+}
+
 // ユーザ1人のプロフィールを返すメソッド
 func GetAdminUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -94,6 +99,31 @@ func CreateAdminUser() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusCreated, admin_user)
+	}
+}
+
+func Login() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		login_info := new(LoginInfo)
+		admin_user := new(AdminUserWithRollName)
+		if err := c.Bind(&login_info); err != nil {
+			return err
+		}
+
+		err = dbmap.SelectOne(
+			admin_user,
+			"select admin_user_id, first_name, last_name, first_name_kana, last_name_kana, roll_name, mail_address, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id WHERE mail_address = ? and pass_word = ?;",
+			login_info.MailAddress, login_info.PassWord,
+		)
+		if err != nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
+		} else if &admin_user == nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusNotFound, "ログインに失敗しました。")
+		}
+
+		return c.JSON(http.StatusOK, admin_user)
 	}
 }
 

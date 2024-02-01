@@ -9,6 +9,7 @@ import UserList from './components/User/List';
 import UserCreate from './components/User/Create';
 import UserDelete from './components/User/Delete';
 import UserComplete from './components/User/Complete';
+import AdminLogin from './components/Admin/Login';
 import AdminDetail from './components/Admin/Detail';
 import AdminList from './components/Admin/List';
 import AdminCreate from './components/Admin/Create';
@@ -27,6 +28,7 @@ const App = () => {
           <Route path="/user/create" element={<UserCreate/>} />
           <Route path="/user/delete/:id" element={<UserDelete/>} />
           <Route path="/user/complete" element={<UserComplete/>} />
+          <Route path="/admin/login" element={<AdminLogin/>} />
           <Route path="/admin/:id" element={<AdminDetail/>} />
           <Route path="/admin/list" element={<AdminList/>} />
           <Route path="/admin/create" element={<AdminCreate/>} />
