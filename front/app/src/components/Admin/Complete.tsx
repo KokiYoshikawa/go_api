@@ -3,7 +3,7 @@ import { useLocation, useNavigate } from "react-router-dom"
 import { Button } from 'antd'
 import {timer} from "../Common/Timer"
 
-const UserCreateComplete = () => {
+const AdminComplete = () => {
   const { state } = useLocation()
   const navigate = useNavigate();
   const [countTime, setCountTime] = useState<number>(5)
@@ -30,4 +30,4 @@ const UserCreateComplete = () => {
     </>
   );
 }
-export default UserCreateComplete;
+export default AdminComplete;
