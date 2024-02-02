@@ -1,6 +1,19 @@
+import { useNavigate } from 'react-router-dom'
 import { Button } from 'antd'
+import { setLoginAndAutoInfoToLocalStorage } from "./Auth/AuthContextProvider";
 
 const Home = () => {
+  const navigate = useNavigate();
+  const logout = () => {
+    setLoginAndAutoInfoToLocalStorage({
+      admin: {adminUserId: 0,
+        firstName: "",
+        lastName: "",
+        rollId: 0},
+      isLogin: false,
+    });
+    navigate("/admin/login", {state: false})
+  }
 
   return (
     <>
@@ -27,6 +40,13 @@ const Home = () => {
         href={"/admin/create"}
       >
         管理ユーザ新規登録
+      </Button>
+    </div>
+    <div>
+      <Button
+        onClick={() => logout()}
+      >
+        ログアウト
       </Button>
     </div>
   </>

@@ -56,6 +56,7 @@ func main() {
 		admins.GET("/:id", admin.GetAdminUser())
 		admins.GET("/list", admin.GetAdminUsers())
 		admins.POST("/create", admin.CreateAdminUser())
+		admins.POST("/login", admin.Login())
 		admins.DELETE("/delete/:id", admin.DeleteAdminUser())
 	}
 
