@@ -38,6 +38,13 @@ type AdminUserWithRollName struct {
 	PassWord      string `json:"passWord" db:"pass_word"`
 }
 
+type AuthInfo struct {
+	AdminUserId int    `json:"adminUserId" db:"admin_user_id"`
+	FirstName   string `json:"firstName" db:"first_name"`
+	LastName    string `json:"lastName" db:"last_name"`
+	RollId      string `json:"rollId" db:"roll_id"`
+}
+
 type LoginInfo struct {
 	MailAddress string `json:"mailAddress" db:"mail_address"`
 	PassWord    string `json:"passWord" db:"pass_word"`
@@ -105,25 +112,25 @@ func CreateAdminUser() echo.HandlerFunc {
 func Login() echo.HandlerFunc {
 	return func(c echo.Context) error {
 		login_info := new(LoginInfo)
-		admin_user := new(AdminUserWithRollName)
+		auth_info := new(AuthInfo)
 		if err := c.Bind(&login_info); err != nil {
 			return err
 		}
 
 		err = dbmap.SelectOne(
-			admin_user,
-			"select admin_user_id, first_name, last_name, first_name_kana, last_name_kana, roll_name, mail_address, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id WHERE mail_address = ? and pass_word = ?;",
+			auth_info,
+			"select admin_user_id, first_name, last_name, roll_id from adminuser WHERE mail_address = ? and pass_word = ?;",
 			login_info.MailAddress, login_info.PassWord,
 		)
 		if err != nil {
 			fmt.Println(err.Error())
 			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
-		} else if &admin_user == nil {
+		} else if &auth_info == nil {
 			fmt.Println(err.Error())
 			return c.JSON(http.StatusNotFound, "ログインに失敗しました。")
 		}
 
-		return c.JSON(http.StatusOK, admin_user)
+		return c.JSON(http.StatusOK, auth_info)
 	}
 }
 

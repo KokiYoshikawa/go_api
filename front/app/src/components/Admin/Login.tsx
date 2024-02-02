@@ -1,6 +1,8 @@
-import { useNavigate } from 'react-router-dom'
+import { useContext, useEffect, useRef } from "react";
+import { useNavigate, useLocation, Navigate } from 'react-router-dom'
 import { Form, Input, Button, message} from 'antd'
 import axios from "axios";
+import { LoginAndAuthInfoContext, setLoginAndAutoInfoToLocalStorage } from "../Auth/AuthContextProvider";
 
 type AdminLoginForm = {
   mailAddress: string;
@@ -8,6 +10,9 @@ type AdminLoginForm = {
 }
 
 const AdminLogin = () => {
+  const { state } = useLocation()
+  const isLogout = useRef(state);
+  const loginAndAuth = useContext(LoginAndAuthInfoContext);
   const navigate = useNavigate();
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminLoginForm) => {
@@ -17,6 +22,13 @@ const AdminLogin = () => {
     },)
     .then(function (response) {
       if (response.status === 200) {
+        setLoginAndAutoInfoToLocalStorage({
+          admin: {adminUserId: response.data.adminUserId,
+            firstName: response.data.firstName,
+            lastName: response.data.lastName,
+            rollId: response.data.rollId},
+          isLogin: true,
+        });
         navigate("/")
       } else {
         failure()
@@ -24,6 +36,7 @@ const AdminLogin = () => {
     })
     .catch(function (error) {
       console.log(error);
+      failure()
     });
   }
 
@@ -33,6 +46,26 @@ const AdminLogin = () => {
       content: 'ログインに失敗しました。',
     });
   };
+
+  const loggedOut = () => {
+    messageApi.open({
+      type: 'warning',
+      content: 'ログアウトしています！',
+    });
+  };
+
+  useEffect(() => {
+    if (!isLogout.current) {
+      isLogout.current = true;
+      loggedOut()
+    }
+  }, [])
+
+  if (loginAndAuth.isLogin) {
+    return (
+      <Navigate to="/"/>
+    );
+  }
 
   return (
     <>
