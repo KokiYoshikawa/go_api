@@ -42,7 +42,7 @@ type AuthInfo struct {
 	AdminUserId int    `json:"adminUserId" db:"admin_user_id"`
 	FirstName   string `json:"firstName" db:"first_name"`
 	LastName    string `json:"lastName" db:"last_name"`
-	RollId      string `json:"rollId" db:"roll_id"`
+	RollId      int    `json:"rollId" db:"roll_id"`
 }
 
 type LoginInfo struct {

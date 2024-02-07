@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom'
 import { Form, Input, Button, message} from 'antd'
+import { CheckLoginAndAuth } from '../Auth/Check';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
 import axios from "axios";
 
 type UserForm = {
@@ -13,6 +16,7 @@ type UserForm = {
 
 const UserCreate = () => {
   const navigate = useNavigate();
+  const authLoginState = useSelector((state:RootState) => state);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: UserForm) => {
     axios.post("http://localhost:8000/go_api/user/create", {
@@ -45,6 +49,7 @@ const UserCreate = () => {
 
   return (
     <>
+      {CheckLoginAndAuth(authLoginState)}
       {contextHolder}
       <Form
         labelCol={{ span: 8 }}
@@ -124,7 +129,7 @@ const UserCreate = () => {
         </Form.Item>
 
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" href={`/`}>
+          <Button type="primary" onClick={()=>{navigate(`/`)}}>
             戻る
           </Button>
         </Form.Item>

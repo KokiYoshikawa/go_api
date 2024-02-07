@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
 import { Button} from 'antd'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
 
 type AdminUser = {
   adminUserId: number;
@@ -14,6 +16,8 @@ type AdminUser = {
 }
 
 const AdminUserList = () => {
+  const navigate = useNavigate();
+  const authLoginState = useSelector((state:RootState) => state);
   const [adminUsers, setData] = useState<AdminUser[]>([]);
   useEffect(() => {
     axios
@@ -24,11 +28,13 @@ const AdminUserList = () => {
     })
   }, [])
 
+  console.log("list", authLoginState)
+
   return (
     <>
     <div>
-      {adminUsers.length > 0 && adminUsers.map((item) => (
-        <div>
+      {adminUsers.length > 0 && adminUsers.map((item, index) => (
+        <div key={index}>
           <label>ID：{item.adminUserId}</label>
           <label>姓：{item.firstName}</label>
           <label>名：{item.lastName}</label>
@@ -40,7 +46,7 @@ const AdminUserList = () => {
         </div>
       ))}
     </div>
-    <Button type="primary" href={`/`}>
+    <Button type="primary" onClick={()=>{navigate("/")}}>
       戻る
     </Button>
     </>

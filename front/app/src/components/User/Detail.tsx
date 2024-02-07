@@ -1,5 +1,8 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
+import { CheckLoginAndAuth } from '../Auth/Check';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
 import axios from "axios";
 import { Button} from 'antd'
 
@@ -14,6 +17,7 @@ type User = {
 
 const UserDetail = () => {
   const navigate = useNavigate();
+  const authLoginState = useSelector((state:RootState) => state);
   const param = useParams<{ id: string }>();
   const [user, setData] = useState<User>()
   useEffect(() => {
@@ -30,6 +34,8 @@ const UserDetail = () => {
   }
 
   return (
+    <>
+      {CheckLoginAndAuth(authLoginState)}
     <div>
       <label>姓：{user?.firstName}</label>
       <label>名：{user?.lastName}</label>
@@ -43,11 +49,12 @@ const UserDetail = () => {
         削除
       </Button>
 
-      <Button type="primary" href={`/user/list`}>
+      <Button type="primary" onClick={()=>{navigate(`/user/list`)}}>
         戻る
       </Button>
 
     </div>
+    </>
   );
 }
 

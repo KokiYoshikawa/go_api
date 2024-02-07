@@ -24,7 +24,10 @@ const AdminComplete = () => {
       <label>メールアドレス：{state.user.mailAddress}</label>
       <label>パスワード{state.user.passWord}</label>
 
-      <Button type="primary" href={`/admin/list`}>
+      <Button
+        type="primary"
+        onClick={()=>{navigate(`/admin/list`)}}
+      >
         戻る
       </Button>
     </>

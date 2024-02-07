@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom'
+import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
 import { Button} from 'antd'
 
@@ -13,6 +13,7 @@ type User = {
 }
 
 const UserList = () => {
+  const navigate = useNavigate();
   const [users, setData] = useState<User[]>([]);
   useEffect(() => {
     axios
@@ -38,7 +39,7 @@ const UserList = () => {
         </div>
       ))}
     </div>
-    <Button type="primary" href={`/`}>
+    <Button type="primary" onClick={()=>{navigate(`/`)}}>
       戻る
     </Button>
     </>
