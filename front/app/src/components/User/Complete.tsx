@@ -24,7 +24,7 @@ const UserComplete = () => {
       <label>メールアドレス：{state.user.mailAddress}</label>
       <label>パスワード{state.user.passWord}</label>
 
-      <Button type="primary" href={`/user/list`}>
+      <Button type="primary" onClick={()=>{navigate(`/user/list`)}}>
         戻る
       </Button>
     </>

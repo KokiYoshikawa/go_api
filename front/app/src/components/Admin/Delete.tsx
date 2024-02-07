@@ -1,10 +1,14 @@
 import { Form, Button, message} from 'antd'
 import { useLocation, useNavigate } from "react-router-dom"
+import { CheckLoginAndAuth } from '../Auth/Check';
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
 import axios from "axios";
 
 const AdminUserDelete = ()=> {
   const { state } = useLocation()
   const navigate = useNavigate();
+  const authLoginState = useSelector((state:RootState) => state);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = () => {
     axios.delete(`http://localhost:8000/go_api/admin/delete/${state.adminUserId}`, {
@@ -26,6 +30,7 @@ const AdminUserDelete = ()=> {
 
   return (
     <>
+      {CheckLoginAndAuth(authLoginState)}
       {contextHolder}
       <div>
         <label>本当にこのユーザを削除しますか？</label>
@@ -49,7 +54,9 @@ const AdminUserDelete = ()=> {
           </Button>
         </Form.Item>
         <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" href={`/admin/${state.adminUserId}`}>
+          <Button type="primary" htmlType="submit"
+            onClick={()=>{navigate(`/admin/${state.adminUserId}`)}}
+          >
             戻る
           </Button>
         </Form.Item>

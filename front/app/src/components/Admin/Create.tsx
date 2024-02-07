@@ -1,4 +1,7 @@
 import { useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
+import { RootState } from '../../redux/Store';
+import { CheckLoginAndAuth } from '../Auth/Check';
 import { Form, Input, Button, message} from 'antd'
 import axios from "axios";
 
@@ -14,9 +17,9 @@ type AdminUserForm = {
 
 const AdminUserCreate = () => {
   const navigate = useNavigate();
+  const authLoginState = useSelector((state:RootState) => state);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminUserForm) => {
-    console.log(values)
     axios.post("http://localhost:8000/go_api/admin/create", {
       firstName: values.firstName,
       lastName: values.lastName,
@@ -45,8 +48,11 @@ const AdminUserCreate = () => {
     });
   };
 
+  console.log("create", authLoginState)
+
   return (
     <>
+    {CheckLoginAndAuth(authLoginState)}
     {contextHolder}
     <Form
       labelCol={{ span: 8 }}
@@ -136,7 +142,10 @@ const AdminUserCreate = () => {
       </Form.Item>
 
       <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-        <Button type="primary" href={`/`}>
+        <Button
+          type="primary"
+          onClick={()=>{navigate(`/`)}}
+        >
           戻る
         </Button>
       </Form.Item>

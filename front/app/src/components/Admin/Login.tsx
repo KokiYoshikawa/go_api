@@ -1,8 +1,10 @@
-import { useContext, useEffect, useRef } from "react";
-import { useNavigate, useLocation, Navigate } from 'react-router-dom'
+import { useNavigate, Navigate } from 'react-router-dom'
 import { Form, Input, Button, message} from 'antd'
 import axios from "axios";
-import { LoginAndAuthInfoContext, setLoginAndAutoInfoToLocalStorage } from "../Auth/AuthContextProvider";
+import { AppDispatch, RootState } from '../../redux/Store';
+import { setAuth } from '../../redux/authentification/Auth';
+import { setLoginState } from '../../redux/login/LoggedIn';
+import { useSelector, useDispatch } from 'react-redux';
 
 type AdminLoginForm = {
   mailAddress: string;
@@ -10,10 +12,9 @@ type AdminLoginForm = {
 }
 
 const AdminLogin = () => {
-  const { state } = useLocation()
-  const isLogout = useRef(state);
-  const loginAndAuth = useContext(LoginAndAuthInfoContext);
   const navigate = useNavigate();
+  const dispatch:AppDispatch = useDispatch();
+  const authLoginState = useSelector((state:RootState) => state);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminLoginForm) => {
     axios.post("http://localhost:8000/go_api/admin/login", {
@@ -22,13 +23,14 @@ const AdminLogin = () => {
     },)
     .then(function (response) {
       if (response.status === 200) {
-        setLoginAndAutoInfoToLocalStorage({
-          admin: {adminUserId: response.data.adminUserId,
-            firstName: response.data.firstName,
-            lastName: response.data.lastName,
-            rollId: response.data.rollId},
-          isLogin: true,
-        });
+        const authInfo= {
+          adminUserId: response.data.adminUserId,
+          firstName: response.data.firstName,
+          lastName: response.data.lastName,
+          rollId: response.data.rollId,
+        }
+        dispatch(setAuth(authInfo));
+        dispatch(setLoginState(true))
         navigate("/")
       } else {
         failure()
@@ -54,14 +56,9 @@ const AdminLogin = () => {
     });
   };
 
-  useEffect(() => {
-    if (!isLogout.current) {
-      isLogout.current = true;
-      loggedOut()
-    }
-  }, [])
+  console.log("login", authLoginState)
 
-  if (loginAndAuth.isLogin) {
+  if (authLoginState.loggedIn.isLogin) {
     return (
       <Navigate to="/"/>
     );

@@ -16,28 +16,32 @@ import AdminCreate from './components/Admin/Create';
 import AdminDelete from './components/Admin/Delete';
 import AdminComplete from './components/Admin/Complete';
 import NotFound from './components/NotFound';
-import { ToLogin} from './components/Auth/AuthContextProvider';
+import store from './redux/Store';
+import { Provider } from 'react-redux';
+import { Check } from './components/Auth/Check';
 
 const App = () => {
   return (
     <div>
-      <Router>
-        <Routes>
-          <Route path="/" element={<ToLogin><Home /></ToLogin>} />
-          <Route path="/user/:id" element={<ToLogin><UserDetail/></ToLogin>} />
-          <Route path="/user/list" element={<ToLogin><UserList/></ToLogin>} />
-          <Route path="/user/create" element={<ToLogin><UserCreate/></ToLogin>} />
-          <Route path="/user/delete/:id" element={<ToLogin><UserDelete/></ToLogin>} />
-          <Route path="/user/complete" element={<ToLogin><UserComplete/></ToLogin>} />
-          <Route path="/admin/login" element={<AdminLogin/>} />
-          <Route path="/admin/:id" element={<ToLogin><AdminDetail/></ToLogin>} />
-          <Route path="/admin/list" element={<ToLogin><AdminList/></ToLogin>} />
-          <Route path="/admin/create" element={<ToLogin><AdminCreate/></ToLogin>} />
-          <Route path="/admin/delete/:id" element={<ToLogin><AdminDelete/></ToLogin>} />
-          <Route path="/admin/complete" element={<AdminComplete/>} />
-          <Route path="/*" element={<NotFound/>} />
-        </Routes>
-      </Router>
+      <Provider store={store}>
+        <Router>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/user/:id" element={<UserDetail/>} />
+            <Route path="/user/list" element={<UserList/>} />
+            <Route path="/user/create" element={<UserCreate/>} />
+            <Route path="/user/delete/:id" element={<UserDelete/>} />
+            <Route path="/user/complete" element={<UserComplete/>} />
+            <Route path="/admin/login" element={<AdminLogin/>} />
+            <Route path="/admin/:id" element={<AdminDetail/>} />
+            <Route path="/admin/list" element={<AdminList/>} />
+            <Route path="/admin/create" element={<Check><AdminCreate/></Check>} />
+            <Route path="/admin/delete/:id" element={<AdminDelete/>} />
+            <Route path="/admin/complete" element={<AdminComplete/>} />
+            <Route path="/*" element={<NotFound/>} />
+          </Routes>
+        </Router>
+      </Provider>
     </div>
   );
 }
