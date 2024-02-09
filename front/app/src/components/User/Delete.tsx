@@ -1,14 +1,10 @@
 import { Form, Button, message} from 'antd'
 import { useLocation, useNavigate } from "react-router-dom"
-import { CheckLoginAndAuth } from '../Auth/Check';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
 import axios from "axios";
 
 const UserDelete = ()=> {
   const { state } = useLocation()
   const navigate = useNavigate();
-  const authLoginState = useSelector((state:RootState) => state);
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = () => {
     axios.delete(`http://localhost:8000/go_api/user/delete/${state.userId}`, {
@@ -30,7 +26,6 @@ const UserDelete = ()=> {
 
   return (
     <>
-      {CheckLoginAndAuth(authLoginState)}
       {contextHolder}
       <div>
         <label>本当にこのユーザを削除しますか？</label>

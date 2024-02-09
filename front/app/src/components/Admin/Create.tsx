@@ -1,7 +1,6 @@
 import { useNavigate } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
-import { CheckLoginAndAuth } from '../Auth/Check';
 import { Form, Input, Button, message} from 'antd'
 import axios from "axios";
 
@@ -52,7 +51,6 @@ const AdminUserCreate = () => {
 
   return (
     <>
-    {CheckLoginAndAuth(authLoginState)}
     {contextHolder}
     <Form
       labelCol={{ span: 8 }}
