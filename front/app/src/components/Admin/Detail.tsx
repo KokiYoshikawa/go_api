@@ -1,8 +1,5 @@
 import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
-import { CheckLoginAndAuth } from '../Auth/Check';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/Store';
 import axios from "axios";
 import { Button} from 'antd'
 
@@ -18,7 +15,6 @@ type AdminUser = {
 
 const AdminUserDetail = () => {
   const navigate = useNavigate();
-  const authLoginState = useSelector((state:RootState) => state);
   const param = useParams<{ id: string }>();
   const [admin_user, setData] = useState<AdminUser>()
   useEffect(() => {
@@ -36,7 +32,6 @@ const AdminUserDetail = () => {
 
   return (
     <>
-      {CheckLoginAndAuth(authLoginState)}
     <div>
       <label>姓：{admin_user?.firstName}</label>
       <label>名：{admin_user?.lastName}</label>

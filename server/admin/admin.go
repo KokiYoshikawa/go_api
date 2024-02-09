@@ -63,10 +63,11 @@ func GetAdminUser() echo.HandlerFunc {
 			id,
 		)
 
-		fmt.Println(admin_user)
-
 		if err != nil {
 			fmt.Println(err.Error())
+			if err.Error() == "sql: no rows in result set" {
+				return c.JSON(http.StatusNotFound, "ユーザが存在しません。")
+			}
 			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
 		}
 		return c.JSON(http.StatusOK, admin_user)
@@ -84,6 +85,9 @@ func GetAdminUsers() echo.HandlerFunc {
 		)
 		if err != nil {
 			fmt.Println(err.Error())
+			if err.Error() == "sql: no rows in result set" {
+				return c.JSON(http.StatusNotFound, "ユーザが存在しません。")
+			}
 			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
 		}
 		return c.JSON(http.StatusOK, admin_users)

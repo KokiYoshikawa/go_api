@@ -33,10 +33,14 @@ func GetUser() echo.HandlerFunc {
 		id := c.Param("id")
 		var user = User{}
 
-		dbmap.SelectOne(&user, "SELECT * FROM user WHERE user_id = ?;", id)
+		err = dbmap.SelectOne(&user, "SELECT * FROM user WHERE user_id = ?;", id)
+
 		if err != nil {
 			fmt.Println(err.Error())
-			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
+			if err.Error() == "sql: no rows in result set" {
+				return c.JSON(http.StatusNotFound, "ユーザが存在しません。")
+			}
+			return c.JSON(http.StatusInternalServerError, "DBアクセスに失敗しました。")
 		}
 		return c.JSON(http.StatusOK, user)
 	}
@@ -50,7 +54,10 @@ func GetUsers() echo.HandlerFunc {
 		_, err = dbmap.Select(&users, "SELECT * FROM user;")
 		if err != nil {
 			fmt.Println(err.Error())
-			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
+			if err.Error() == "sql: no rows in result set" {
+				return c.JSON(http.StatusNotFound, "ユーザが存在しません。")
+			}
+			return c.JSON(http.StatusInternalServerError, "DBアクセスに失敗しました。")
 		}
 		return c.JSON(http.StatusOK, users)
 	}
@@ -87,7 +94,7 @@ func DeleteUser() echo.HandlerFunc {
 			fmt.Println(err.Error())
 			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
 		} else if delete_line == 0 {
-			return c.JSON(http.StatusNotFound, "削除対象が存在しません。")
+			return c.JSON(http.StatusNotFound, "削除対象のユーザが存在しません。")
 		}
 
 		return c.JSON(http.StatusOK, delete_line)
