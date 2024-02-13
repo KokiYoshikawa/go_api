@@ -32,7 +32,7 @@ const AdminLogin = () => {
         }
         dispatch(setAuth(authInfo));
         dispatch(setLoginState(true))
-        navigate("/")
+        navigate("/admin")
       } else {
         failure()
       }
@@ -59,7 +59,7 @@ const AdminLogin = () => {
 
   if (authLoginState.loggedIn.isLogin) {
     return (
-      <Navigate to="/"/>
+      <Navigate to="/admin"/>
     );
   }
 

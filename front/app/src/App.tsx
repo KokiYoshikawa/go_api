@@ -3,7 +3,7 @@ import {
   Routes,
   Route,
   } from "react-router-dom";
-import Home from './components/Home';
+import AdminHome from './components/AdminHome';
 import UserDetail from './components/User/Detail';
 import UserList from './components/User/List';
 import UserCreate from './components/User/Create';
@@ -32,7 +32,7 @@ const App = () => {
         <PersistGate loading={null} persistor={persistor}>
           <Router>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route path="/admin" element={<AdminHome />} />
               <Route path="/user/:id" element={<LoginCheck><UserDetail/></LoginCheck>} />
               <Route path="/user/list" element={<LoginCheck><UserList/></LoginCheck>} />
               <Route path="/user/create" element={<AuthCheck><UserCreate/></AuthCheck>} />

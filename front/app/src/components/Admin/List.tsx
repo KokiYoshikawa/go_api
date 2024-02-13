@@ -72,7 +72,7 @@ const AdminUserList = () => {
         <div>
           <Table columns={columns} dataSource={adminUsers} rowKey={'adminUserId'}/>
         </div>
-        <Button type="primary" onClick={()=>{navigate("/")}}>
+        <Button type="primary" onClick={()=>{navigate("/admin")}}>
           戻る
         </Button>
       </DefaultLayout>

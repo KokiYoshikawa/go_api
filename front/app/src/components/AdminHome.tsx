@@ -6,7 +6,7 @@ import { setLoginState } from '../redux/login/LoggedIn';
 import { useSelector, useDispatch } from 'react-redux';
 import DefaultLayout from './Common/Layout';
 
-const Home = () => {
+const AdminHome = () => {
   const dispatch:AppDispatch = useDispatch();
   const authLoginState = useSelector((state:RootState) => state);
   const navigate = useNavigate();
@@ -83,4 +83,4 @@ const Home = () => {
   );
 }
 
-export default Home;
+export default AdminHome;
