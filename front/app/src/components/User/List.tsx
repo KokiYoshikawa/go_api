@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
-import { Button} from 'antd'
+import { Button, Table } from 'antd'
+import type { TableColumnsType } from 'antd';
+import DefaultLayout from '../Common/Layout';
 
 type User = {
   userId: number;
@@ -11,6 +13,40 @@ type User = {
   lastNameKana: string;
   mailAddress: string;
 }
+
+const columns: TableColumnsType<User> = [
+  {
+    title: 'ID',
+    dataIndex: 'userId',
+  },
+  {
+    title: '姓',
+    dataIndex: 'firstName',
+  },
+  {
+    title: '名',
+    dataIndex: 'lastName',
+  },
+  {
+    title: '姓かな',
+    dataIndex: 'firstNameKana',
+  },
+  {
+    title: '名かな',
+    dataIndex: 'lastNameKana',
+  },
+  {
+    title: 'メールアドレス',
+    dataIndex: 'mailAddress',
+  },
+  {
+    title: '',
+    dataIndex: 'action',
+    render: (_, record) => (
+      <Link to={`/user/${record.userId}`}>詳細</Link>
+    ),
+  },
+];
 
 const UserList = () => {
   const navigate = useNavigate();
@@ -26,22 +62,14 @@ const UserList = () => {
 
   return (
     <>
-    <div>
-      {users.length > 0 && users.map((item) => (
+      <DefaultLayout>
         <div>
-          <label>ID：{item.userId}</label>
-          <label>姓：{item.firstName}</label>
-          <label>名：{item.lastName}</label>
-          <label>姓カナ：{item.firstNameKana}</label>
-          <label>名カナ：{item.lastNameKana}</label>
-          <label>メールアドレス：{item.mailAddress}</label>
-          <Link to={`/user/${item.userId}`}>詳細</Link>
+          <Table columns={columns} dataSource={users} rowKey={'userId'}/>
         </div>
-      ))}
-    </div>
-    <Button type="primary" onClick={()=>{navigate(`/`)}}>
-      戻る
-    </Button>
+        <Button type="primary" onClick={()=>{navigate(`/`)}}>
+          戻る
+        </Button>
+      </DefaultLayout>
     </>
   );
 };

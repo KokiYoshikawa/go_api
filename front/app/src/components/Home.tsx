@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '../redux/Store';
 import { setAuth, AuthInitialState } from '../redux/authentification/Auth';
 import { setLoginState } from '../redux/login/LoggedIn';
 import { useSelector, useDispatch } from 'react-redux';
+import DefaultLayout from './Common/Layout';
 
 const Home = () => {
   const dispatch:AppDispatch = useDispatch();
@@ -21,8 +22,6 @@ const Home = () => {
     navigate("/admin/login")
   }
 
-  console.log("home", authLoginState)
-
   if (!authLoginState.loggedIn.isLogin) {
     return(
       <>
@@ -33,51 +32,53 @@ const Home = () => {
 
   return (
     <>
-      <div>
-        ようこそ！
-        <label>
-          {authLoginState.auth.firstName + authLoginState.auth.lastName}
-        </label>
-      </div>
-      <div>
-        <Button
-          onClick={()=>(
-            navigate("/user/list")
-          )}
-        >
-          利用ユーザ一覧
-        </Button>
-        <Button
-          onClick={()=>(
-            navigate("/user/create")
-          )}
-        >
-          利用ユーザ新規登録
-        </Button>
-      </div>
-      <div>
-        <Button
-          onClick={()=>(
-            navigate("/admin/list")
-          )}
-        >
-          管理ユーザ一覧
-        </Button>
-        <Button
-          onClick={()=>(
-            navigate("/admin/create")
-          )}
-        >
-          管理ユーザ新規登録
-        </Button>
-      </div>
-      <div>
-        <Button
-          onClick={() => logout()}
-        >
-          ログアウト
-        </Button>
-      </div>
+      <DefaultLayout>
+        <div>
+          ようこそ！
+          <label>
+            {authLoginState.auth.firstName + authLoginState.auth.lastName}
+          </label>
+        </div>
+        <div>
+          <Button
+            onClick={()=>(
+              navigate("/user/list")
+            )}
+          >
+            利用ユーザ一覧
+          </Button>
+          <Button
+            onClick={()=>(
+              navigate("/user/create")
+            )}
+          >
+            利用ユーザ新規登録
+          </Button>
+        </div>
+        <div>
+          <Button
+            onClick={()=>(
+              navigate("/admin/list")
+            )}
+          >
+            管理ユーザ一覧
+          </Button>
+          <Button
+            onClick={()=>(
+              navigate("/admin/create")
+            )}
+          >
+            管理ユーザ新規登録
+          </Button>
+        </div>
+        <div>
+          <Button
+            onClick={() => logout()}
+          >
+            ログアウト
+          </Button>
+        </div>
+      </DefaultLayout>
     </>
   );
 }

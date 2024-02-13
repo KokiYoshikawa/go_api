@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
 import { useNavigate, Link } from 'react-router-dom'
 import axios from "axios";
-import { Button} from 'antd'
+import { Button, Table } from 'antd'
+import type { TableColumnsType } from 'antd';
 import { useSelector } from 'react-redux';
 import { RootState } from '../../redux/Store';
+import DefaultLayout from '../Common/Layout';
 
 type AdminUser = {
   adminUserId: number;
@@ -14,6 +16,40 @@ type AdminUser = {
   mailAddress: string;
   rollName: number;
 }
+
+const columns: TableColumnsType<AdminUser> = [
+  {
+    title: 'ID',
+    dataIndex: 'adminUserId',
+  },
+  {
+    title: '姓',
+    dataIndex: 'firstName',
+  },
+  {
+    title: '名',
+    dataIndex: 'lastName',
+  },
+  {
+    title: '姓かな',
+    dataIndex: 'firstNameKana',
+  },
+  {
+    title: '名かな',
+    dataIndex: 'lastNameKana',
+  },
+  {
+    title: 'メールアドレス',
+    dataIndex: 'mailAddress',
+  },
+  {
+    title: '',
+    dataIndex: 'action',
+    render: (_, record) => (
+      <Link to={`/user/${record.adminUserId}`}>詳細</Link>
+    ),
+  },
+];
 
 const AdminUserList = () => {
   const navigate = useNavigate();
@@ -32,23 +68,14 @@ const AdminUserList = () => {
 
   return (
     <>
-    <div>
-      {adminUsers.length > 0 && adminUsers.map((item, index) => (
-        <div key={index}>
-          <label>ID：{item.adminUserId}</label>
-          <label>姓：{item.firstName}</label>
-          <label>名：{item.lastName}</label>
-          <label>姓カナ：{item.firstNameKana}</label>
-          <label>名カナ：{item.lastNameKana}</label>
-          <label>メールアドレス：{item.mailAddress}</label>
-          <label>権限：{item.rollName}</label>
-          <Link to={`/admin/${item.adminUserId}`}>詳細</Link>
+      <DefaultLayout>
+        <div>
+          <Table columns={columns} dataSource={adminUsers} rowKey={'adminUserId'}/>
         </div>
-      ))}
-    </div>
-    <Button type="primary" onClick={()=>{navigate("/")}}>
-      戻る
-    </Button>
+        <Button type="primary" onClick={()=>{navigate("/")}}>
+          戻る
+        </Button>
+      </DefaultLayout>
     </>
   );
 };
