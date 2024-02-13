@@ -1,6 +1,7 @@
 import { Form, Button, message} from 'antd'
 import { useLocation, useNavigate } from "react-router-dom"
 import axios from "axios";
+import DefaultLayout from '../Common/Layout';
 
 const UserDelete = ()=> {
   const { state } = useLocation()
@@ -26,33 +27,35 @@ const UserDelete = ()=> {
 
   return (
     <>
-      {contextHolder}
-      <div>
-        <label>本当にこのユーザを削除しますか？</label>
-      </div>
-      <label>姓：{state.firstName}</label>
-      <label>名：{state.lastName}</label>
-      <label>姓カナ：{state.firstNameKana}</label>
-      <label>名カナ：{state.lastNameKana}</label>
-      <label>メールアドレス：{state.mailAddress}</label>
+      <DefaultLayout>
+        {contextHolder}
+        <div>
+          <label>本当にこのユーザを削除しますか？</label>
+        </div>
+        <label>姓：{state.firstName}</label>
+        <label>名：{state.lastName}</label>
+        <label>姓カナ：{state.firstNameKana}</label>
+        <label>名カナ：{state.lastNameKana}</label>
+        <label>メールアドレス：{state.mailAddress}</label>
 
-      <Form
-        labelCol={{ span: 8 }}
-        wrapperCol={{ span: 16 }}
-        style={{ maxWidth: 600 }}
-        onFinish={onFinish}
-      >
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" danger={true} htmlType="submit">
-            削除
-          </Button>
-        </Form.Item>
-        <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-          <Button type="primary" htmlType="submit" onClick={()=>{navigate(`/user/${state.userId}`)}}>
-            戻る
-          </Button>
-        </Form.Item>
-      </Form>
+        <Form
+          labelCol={{ span: 8 }}
+          wrapperCol={{ span: 16 }}
+          style={{ maxWidth: 600 }}
+          onFinish={onFinish}
+        >
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" danger={true} htmlType="submit">
+              削除
+            </Button>
+          </Form.Item>
+          <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
+            <Button type="primary" htmlType="submit" onClick={()=>{navigate(`/user/${state.userId}`)}}>
+              戻る
+            </Button>
+          </Form.Item>
+        </Form>
+      </DefaultLayout>
     </>
   )
 }

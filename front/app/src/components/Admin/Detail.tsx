@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom'
 import axios from "axios";
 import { Button} from 'antd'
+import DefaultLayout from '../Common/Layout';
 
 type AdminUser = {
   adminUserId: number;
@@ -32,24 +33,27 @@ const AdminUserDetail = () => {
 
   return (
     <>
-    <div>
-      <label>姓：{admin_user?.firstName}</label>
-      <label>名：{admin_user?.lastName}</label>
-      <label>姓カナ：{admin_user?.firstNameKana}</label>
-      <label>名カナ：{admin_user?.lastNameKana}</label>
-      <label>メールアドレス：{admin_user?.mailAddress}</label>
-      <label>権限：{admin_user?.rollName}</label>
-      <Button
-        onClick = {()=> ToDelete()}
-      >
-        削除
-      </Button>
+     <DefaultLayout>
+      <div>
+        <label>姓：{admin_user?.firstName}</label>
+        <label>名：{admin_user?.lastName}</label>
+        <label>姓カナ：{admin_user?.firstNameKana}</label>
+        <label>名カナ：{admin_user?.lastNameKana}</label>
+        <label>メールアドレス：{admin_user?.mailAddress}</label>
+        <label>権限：{admin_user?.rollName}</label>
+      </div>
+      <div>
+        <Button
+          onClick = {()=> ToDelete()}
+        >
+          削除
+        </Button>
 
-      <Button type="primary" onClick={()=>{navigate(`/admin/list`)}}>
-        戻る
-      </Button>
-
-    </div>
+        <Button type="primary" onClick={()=>{navigate(`/admin/list`)}}>
+          戻る
+        </Button>
+      </div>
+     </DefaultLayout>
     </>
   );
 }
