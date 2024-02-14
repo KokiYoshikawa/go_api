@@ -142,7 +142,7 @@ const AdminUserCreate = () => {
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button
               type="primary"
-              onClick={()=>{navigate(`/`)}}
+              onClick={()=>{navigate(`/admin`)}}
             >
               戻る
             </Button>

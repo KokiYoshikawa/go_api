@@ -126,7 +126,7 @@ const UserCreate = () => {
           </Form.Item>
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
-            <Button type="primary" onClick={()=>{navigate(`/`)}}>
+            <Button type="primary" onClick={()=>{navigate(`/admin`)}}>
               戻る
             </Button>
           </Form.Item>

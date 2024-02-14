@@ -10,7 +10,7 @@ const NoAuth = () => {
   timer(countTime, setCountTime)
 
   if (countTime === 0) {
-    navigate("/")
+    navigate("/admin")
   }
 
   return(
@@ -20,7 +20,7 @@ const NoAuth = () => {
 
       <Button
         type="primary"
-        onClick={()=>{navigate(`/`)}}
+        onClick={()=>{navigate(`/admin`)}}
       >
         戻る
       </Button>
