@@ -4,6 +4,7 @@ import { AppDispatch, RootState } from '../redux/Store';
 import { setAuth, AuthInitialState } from '../redux/authentification/UserAuth';
 import { setLoginState } from '../redux/login/LoggedIn';
 import { useSelector, useDispatch } from 'react-redux';
+// import { AppStyle } from '../components/Common/Layout';
 
 const AppHome = () => {
   const dispatch:AppDispatch = useDispatch();
@@ -32,6 +33,9 @@ const AppHome = () => {
   const LogoutButton = () => {
     return (
       <>
+        <Button onClick={()=>{navigate('/app/user/mypage')}}>
+          マイページ
+        </Button>
         <Button onClick={()=>{logout()}}>
           ログアウト
         </Button>
@@ -41,11 +45,13 @@ const AppHome = () => {
 
   return (
     <>
-      app名にようこそ！ <br/>
-      <Button href={'/app/user/create'}>
-        ユーザ登録
-      </Button>
-      { authLoginState.loggedIn.isLogin ? <LogoutButton/>: <LoginButton/> }
+      {/* <AppStyle> */}
+        app名にようこそ！ <br/>
+        <Button onClick={()=>{navigate('/app/user/create')}}>
+          ユーザ登録
+        </Button>
+        { authLoginState.loggedIn.isLogin ? <LogoutButton/>: <LoginButton/> }
+      {/* </AppStyle> */}
     </>
   );
 }
