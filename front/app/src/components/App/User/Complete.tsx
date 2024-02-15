@@ -19,11 +19,7 @@ const AppUserComplete = () => {
     <>
       <DefaultLayout>
         <label>登録が完了しました。</label>
-        <label>姓：{state.firstName}</label>
-        <label>名：{state.lastName}</label>
-        <label>姓カナ：{state.firstNameKana}</label>
-        <label>名カナ：{state.lastNameKana}</label>
-        <label>メールアドレス：{state.mailAddress}</label>
+        <label>ニックネーム：{state.nickName}</label>
         <label>パスワード{state.passWord}</label>
 
         <div>

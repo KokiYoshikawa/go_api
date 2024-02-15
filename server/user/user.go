@@ -17,13 +17,9 @@ var (
 )
 
 type User struct {
-	UserId        int    `json:"userId" db:"user_id"`
-	FirstName     string `json:"firstName" db:"first_name"`
-	LastName      string `json:"lastName" db:"last_name"`
-	FirstNameKana string `json:"firstNameKana" db:"first_name_kana"`
-	LastNameKana  string `json:"lastNameKana" db:"last_name_kana"`
-	MailAddress   string `json:"mailAddress" db:"mail_address"`
-	PassWord      string `json:"passWord" db:"pass_word"`
+	UserId   int    `json:"userId" db:"user_id"`
+	NickName string `json:"nickName" db:"nick_name"`
+	PassWord string `json:"passWord" db:"pass_word"`
 }
 
 // ユーザ1人のプロフィールを返すメソッド

@@ -6,11 +6,7 @@ import DefaultLayout from '../Common/Layout';
 
 type AdminUser = {
   adminUserId: number;
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
+  nickName: string;
   rollName: number;
 }
 
@@ -35,11 +31,7 @@ const AdminUserDetail = () => {
     <>
      <DefaultLayout>
       <div>
-        <label>姓：{admin_user?.firstName}</label>
-        <label>名：{admin_user?.lastName}</label>
-        <label>姓カナ：{admin_user?.firstNameKana}</label>
-        <label>名カナ：{admin_user?.lastNameKana}</label>
-        <label>メールアドレス：{admin_user?.mailAddress}</label>
+        <label>ニックネーム：{admin_user?.nickName}</label>
         <label>権限：{admin_user?.rollName}</label>
       </div>
       <div>

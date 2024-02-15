@@ -7,11 +7,7 @@ import DefaultLayout from '../Common/Layout';
 
 type User = {
   userId: number;
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
+  nickName: string;
 }
 
 const columns: TableColumnsType<User> = [
@@ -20,24 +16,8 @@ const columns: TableColumnsType<User> = [
     dataIndex: 'userId',
   },
   {
-    title: '姓',
-    dataIndex: 'firstName',
-  },
-  {
-    title: '名',
-    dataIndex: 'lastName',
-  },
-  {
-    title: '姓かな',
-    dataIndex: 'firstNameKana',
-  },
-  {
-    title: '名かな',
-    dataIndex: 'lastNameKana',
-  },
-  {
-    title: 'メールアドレス',
-    dataIndex: 'mailAddress',
+    title: 'ニックネーム',
+    dataIndex: 'nickName',
   },
   {
     title: '',

@@ -17,37 +17,28 @@ var (
 )
 
 type AdminUser struct {
-	AdminUserId   int    `json:"adminUserId" db:"admin_user_id"`
-	FirstName     string `json:"firstName" db:"first_name"`
-	LastName      string `json:"lastName" db:"last_name"`
-	FirstNameKana string `json:"firstNameKana" db:"first_name_kana"`
-	LastNameKana  string `json:"lastNameKana" db:"last_name_kana"`
-	MailAddress   string `json:"mailAddress" db:"mail_address"`
-	RollId        string `json:"rollId" db:"roll_id"`
-	PassWord      string `json:"passWord" db:"pass_word"`
+	AdminUserId int    `json:"adminUserId" db:"admin_user_id"`
+	NickName    string `json:"nickName" db:"nick_name"`
+	RollId      string `json:"rollId" db:"roll_id"`
+	PassWord    string `json:"passWord" db:"pass_word"`
 }
 
 type AdminUserWithRollName struct {
-	AdminUserId   int    `json:"adminUserId" db:"admin_user_id"`
-	FirstName     string `json:"firstName" db:"first_name"`
-	LastName      string `json:"lastName" db:"last_name"`
-	FirstNameKana string `json:"firstNameKana" db:"first_name_kana"`
-	LastNameKana  string `json:"lastNameKana" db:"last_name_kana"`
-	MailAddress   string `json:"mailAddress" db:"mail_address"`
-	RollName      string `json:"rollName" db:"roll_name"`
-	PassWord      string `json:"passWord" db:"pass_word"`
+	AdminUserId int    `json:"adminUserId" db:"admin_user_id"`
+	NickName    string `json:"nickName" db:"nick_name"`
+	RollName    string `json:"rollName" db:"roll_name"`
+	PassWord    string `json:"passWord" db:"pass_word"`
 }
 
 type AuthInfo struct {
 	AdminUserId int    `json:"adminUserId" db:"admin_user_id"`
-	FirstName   string `json:"firstName" db:"first_name"`
-	LastName    string `json:"lastName" db:"last_name"`
+	NickName    string `json:"nickName" db:"nick_name"`
 	RollId      int    `json:"rollId" db:"roll_id"`
 }
 
 type LoginInfo struct {
-	MailAddress string `json:"mailAddress" db:"mail_address"`
-	PassWord    string `json:"passWord" db:"pass_word"`
+	NickName string `json:"nickName" db:"nick_name"`
+	PassWord string `json:"passWord" db:"pass_word"`
 }
 
 // ユーザ1人のプロフィールを返すメソッド
@@ -59,7 +50,7 @@ func GetAdminUser() echo.HandlerFunc {
 
 		dbmap.SelectOne(
 			&admin_user,
-			"select admin_user_id, first_name, last_name, first_name_kana, last_name_kana, roll_name, mail_address, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id WHERE admin_user_id = ?;",
+			"select admin_user_id, nick_name, roll_name, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id WHERE admin_user_id = ?;",
 			id,
 		)
 
@@ -81,7 +72,7 @@ func GetAdminUsers() echo.HandlerFunc {
 
 		_, err = dbmap.Select(
 			&admin_users,
-			"select admin_user_id, first_name, last_name, first_name_kana, last_name_kana, roll_name, mail_address, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id;",
+			"select admin_user_id, nick_name, roll_name, pass_word from adminuser join adminroll on adminuser.roll_id = adminroll.id;",
 		)
 		if err != nil {
 			fmt.Println(err.Error())
@@ -123,8 +114,8 @@ func Login() echo.HandlerFunc {
 
 		err = dbmap.SelectOne(
 			auth_info,
-			"select admin_user_id, first_name, last_name, roll_id from adminuser WHERE mail_address = ? and pass_word = ?;",
-			login_info.MailAddress, login_info.PassWord,
+			"select admin_user_id, nick_name, roll_id from adminuser WHERE nick_name = ? and pass_word = ?;",
+			login_info.NickName, login_info.PassWord,
 		)
 		if err != nil {
 			fmt.Println(err.Error())

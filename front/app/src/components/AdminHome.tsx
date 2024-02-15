@@ -13,8 +13,7 @@ const AdminHome = () => {
   const logout = () => {
     const auth:AuthInitialState = {
       adminUserId: 0,
-      firstName: "",
-      lastName: "",
+      nickName: "",
       rollId: 0,
     }
     dispatch(setAuth(auth))
@@ -36,7 +35,7 @@ const AdminHome = () => {
         <div>
           ようこそ！
           <label>
-            {authLoginState.auth.firstName + authLoginState.auth.lastName}
+            {authLoginState.auth.nickName}
           </label>
         </div>
         <div>

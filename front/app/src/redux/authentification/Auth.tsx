@@ -2,16 +2,14 @@ import {createSlice} from '@reduxjs/toolkit';
 
 export type AuthInitialState = {
   adminUserId: number;
-  firstName: string;
-  lastName: string;
+  nickName: string;
   rollId: number;
 }
 
 // Stateの初期状態
 const authInitialState:AuthInitialState = {
   adminUserId: 0,
-  firstName: "",
-  lastName: "",
+  nickName: "",
   rollId: 0,
 };
 
@@ -23,8 +21,7 @@ export const authSlice = createSlice({
     setAuth: (state, {payload}) => {
       let auth:AuthInitialState = payload
       state.adminUserId = auth.adminUserId
-      state.firstName = auth.firstName
-      state.lastName = auth.lastName
+      state.nickName = auth.nickName
       state.rollId = auth.rollId
     },
     resetAuth: state => {

@@ -6,11 +6,7 @@ import axios from "axios";
 import DefaultLayout from '../Common/Layout';
 
 type AdminUserForm = {
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
+  nickName: string;
   rollId: number;
   passWord: string;
 }
@@ -21,11 +17,7 @@ const AdminUserCreate = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminUserForm) => {
     axios.post("http://localhost:8000/go_api/admin/create", {
-      firstName: values.firstName,
-      lastName: values.lastName,
-      firstNameKana: values.firstNameKana,
-      lastNameKana: values.lastNameKana,
-      mailAddress: values.mailAddress,
+      nickName: values.nickName,
       rollId: values.rollId,
       passWord: values.passWord
     },)
@@ -59,54 +51,11 @@ const AdminUserCreate = () => {
           onFinish={onFinish}
         >
           <Form.Item
-            label="姓"
-            name="firstName"
+            label="ニックネーム"
+            name="nickName"
             rules={[
               { required: true, message: "姓は入力必須です！" },
               { min: 1, max: 50, message: "1文字〜50文字で入力してください" }
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="名"
-            name="lastName"
-            rules={[
-              { required: true, message: "名は入力必須です！" },
-              { min: 1, max: 50, message: "1文字〜50文字で入力してください" }
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="姓カナ"
-            name="firstNameKana"
-            rules={[
-              { required: true, message: "姓カナは入力必須です！" },
-              { min: 1, max: 50, message: "1文字〜50文字で入力してください" },
-              { pattern: /^[ァ-ヴ]+$/, message: "全角カナ文字で入力してください" }
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="名カナ"
-            name="lastNameKana"
-            rules={[
-              {required: true, message: "名カナは入力必須です！"},
-              { min: 1, max: 50, message: "1文字〜50文字で入力してください" },
-              { pattern: /^[ァ-ヴ]+$/, message: "全角カナ文字で入力してください" }
-            ]}
-          >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            label="メールアドレス"
-            name="mailAddress"
-            rules={[
-              {required: true, message: "メールアドレスは入力必須です！"},
-              { min: 1, max: 100, message: "1文字〜100文字で入力してください" },
-              { pattern: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/, message:"入力規則に反した文字です"}
             ]}
           >
             <Input />

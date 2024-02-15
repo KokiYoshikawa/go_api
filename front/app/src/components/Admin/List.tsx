@@ -9,11 +9,7 @@ import DefaultLayout from '../Common/Layout';
 
 type AdminUser = {
   adminUserId: number;
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
+  nickName: string;
   rollName: number;
 }
 
@@ -23,24 +19,12 @@ const columns: TableColumnsType<AdminUser> = [
     dataIndex: 'adminUserId',
   },
   {
-    title: '姓',
-    dataIndex: 'firstName',
+    title: 'ニックネーム',
+    dataIndex: 'nickName',
   },
   {
-    title: '名',
-    dataIndex: 'lastName',
-  },
-  {
-    title: '姓かな',
-    dataIndex: 'firstNameKana',
-  },
-  {
-    title: '名かな',
-    dataIndex: 'lastNameKana',
-  },
-  {
-    title: 'メールアドレス',
-    dataIndex: 'mailAddress',
+    title: '権限',
+    dataIndex: 'rollName',
   },
   {
     title: '',
