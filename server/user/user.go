@@ -22,6 +22,16 @@ type User struct {
 	PassWord string `json:"passWord" db:"pass_word"`
 }
 
+type UserInfo struct {
+	UserId   int    `json:"userId" db:"user_id"`
+	NickName string `json:"nickName" db:"nick_name"`
+}
+
+type LoginInfo struct {
+	NickName string `json:"nickName" db:"nick_name"`
+	PassWord string `json:"passWord" db:"pass_word"`
+}
+
 // ユーザ1人のプロフィールを返すメソッド
 func GetUser() echo.HandlerFunc {
 	return func(c echo.Context) error {
@@ -94,5 +104,30 @@ func DeleteUser() echo.HandlerFunc {
 		}
 
 		return c.JSON(http.StatusOK, delete_line)
+	}
+}
+
+func Login() echo.HandlerFunc {
+	return func(c echo.Context) error {
+		login_info := new(LoginInfo)
+		user_info := new(UserInfo)
+		if err := c.Bind(&login_info); err != nil {
+			return err
+		}
+
+		err = dbmap.SelectOne(
+			user_info,
+			"select user_id, nick_name from user WHERE nick_name = ? and pass_word = ?;",
+			login_info.NickName, login_info.PassWord,
+		)
+		if err != nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusNotFound, "DBアクセスに失敗しました。")
+		} else if &user_info == nil {
+			fmt.Println(err.Error())
+			return c.JSON(http.StatusNotFound, "ログインに失敗しました。")
+		}
+
+		return c.JSON(http.StatusOK, user_info)
 	}
 }

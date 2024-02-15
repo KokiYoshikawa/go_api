@@ -4,6 +4,8 @@ import {
   Route,
   } from "react-router-dom";
 import AppHome from './components/AppHome';
+import AppUserLogin from './components/App/User/Login';
+import AppUserLogout from './components/App/User/Logout';
 import AppUserCreate from './components/App/User/Create';
 import AppComplete from './components/App/User/Complete';
 import AdminHome from './components/AdminHome';
@@ -36,6 +38,8 @@ const App = () => {
           <Router>
             <Routes>
               <Route path="/app" element={<AppHome />} />
+              <Route path="/app/user/login" element={<AppUserLogin />} />
+              <Route path="/app/user/logout" element={<AppUserLogout />} />
               <Route path="/app/user/create" element={<AppUserCreate />} />
               <Route path="/app/user/complete" element={<AppComplete/>} />
               <Route path="/admin" element={<AdminHome />} />
