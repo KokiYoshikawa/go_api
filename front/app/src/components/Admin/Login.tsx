@@ -8,7 +8,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import DefaultLayout from '../Common/Layout';
 
 type AdminLoginForm = {
-  mailAddress: string;
+  nickName: string;
   passWord: string;
 }
 
@@ -19,15 +19,14 @@ const AdminLogin = () => {
   const [messageApi, contextHolder] = message.useMessage();
   const onFinish = (values: AdminLoginForm) => {
     axios.post("http://localhost:8000/go_api/admin/login", {
-      mailAddress: values.mailAddress,
+      nickName: values.nickName,
       passWord: values.passWord
     },)
     .then(function (response) {
       if (response.status === 200) {
         const authInfo= {
           adminUserId: response.data.adminUserId,
-          firstName: response.data.firstName,
-          lastName: response.data.lastName,
+          nickName: response.data.nickName,
           rollId: response.data.rollId,
         }
         dispatch(setAuth(authInfo));
@@ -74,12 +73,11 @@ const AdminLogin = () => {
         onFinish={onFinish}
         >
           <Form.Item
-            label="メールアドレス"
-            name="mailAddress"
+            label="ニックネーム"
+            name="nickName"
             rules={[
-              {required: true, message: "メールアドレスは入力必須です！"},
-              { min: 1, max: 100, message: "1文字〜100文字で入力してください" },
-              { pattern: /^[a-zA-Z0-9_+-]+(.[a-zA-Z0-9_+-]+)*@([a-zA-Z0-9][a-zA-Z0-9-]*[a-zA-Z0-9]*\.)+[a-zA-Z]{2,}$/, message:"入力規則に反した文字です"}
+              { required: true, message: "姓は入力必須です！" },
+              { min: 1, max: 50, message: "1文字〜50文字で入力してください" }
             ]}
           >
             <Input />

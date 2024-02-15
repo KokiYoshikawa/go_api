@@ -18,12 +18,8 @@ const UserComplete = () => {
   return (
     <>
       <DefaultLayout>
-        <label>管理者{state.word}が完了しました。</label>
-        <label>姓：{state.user.firstName}</label>
-        <label>名：{state.user.lastName}</label>
-        <label>姓カナ：{state.user.firstNameKana}</label>
-        <label>名カナ：{state.user.lastNameKana}</label>
-        <label>メールアドレス：{state.user.mailAddress}</label>
+        <label>ユーザ{state.word}が完了しました。</label>
+        <label>ニックネーム：{state.user.nickName}</label>
         <label>パスワード{state.user.passWord}</label>
 
         <Button type="primary" onClick={()=>{navigate(`/user/list`)}}>

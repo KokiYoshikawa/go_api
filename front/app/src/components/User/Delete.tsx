@@ -32,11 +32,7 @@ const UserDelete = ()=> {
         <div>
           <label>本当にこのユーザを削除しますか？</label>
         </div>
-        <label>姓：{state.firstName}</label>
-        <label>名：{state.lastName}</label>
-        <label>姓カナ：{state.firstNameKana}</label>
-        <label>名カナ：{state.lastNameKana}</label>
-        <label>メールアドレス：{state.mailAddress}</label>
+        <label>ニックネーム：{state.nickName}</label>
 
         <Form
           labelCol={{ span: 8 }}

@@ -6,11 +6,7 @@ import DefaultLayout from '../Common/Layout';
 
 type User = {
   userId: number;
-  firstName: string;
-  lastName: string;
-  firstNameKana: string;
-  lastNameKana: string;
-  mailAddress: string;
+  nickName: string;
 }
 
 const UserDetail = () => {
@@ -34,11 +30,7 @@ const UserDetail = () => {
     <>
       <DefaultLayout>
         <div>
-          <label>姓：{user?.firstName}</label>
-          <label>名：{user?.lastName}</label>
-          <label>姓カナ：{user?.firstNameKana}</label>
-          <label>名カナ：{user?.lastNameKana}</label>
-          <label>メールアドレス：{user?.mailAddress}</label>
+          <label>ニックネーム：{user?.nickName}</label>
         </div>
         <div>
           <Button
