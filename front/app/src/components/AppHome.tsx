@@ -20,9 +20,12 @@ const AppHome = () => {
     navigate("/app/user/logout")
   }
 
-  const LoginButton = () => {
+  const IsLogout = () => {
     return (
       <>
+        <Button onClick={()=>{navigate('/app/user/create')}}>
+          ユーザ登録
+        </Button>
         <Button href={'/app/user/login'}>
           ログイン
         </Button>
@@ -30,7 +33,7 @@ const AppHome = () => {
     );
   }
 
-  const LogoutButton = () => {
+  const IsLogin = () => {
     return (
       <>
         <Button onClick={()=>{navigate('/app/user/mypage')}}>
@@ -47,10 +50,7 @@ const AppHome = () => {
     <>
       {/* <AppStyle> */}
         app名にようこそ！ <br/>
-        <Button onClick={()=>{navigate('/app/user/create')}}>
-          ユーザ登録
-        </Button>
-        { authLoginState.loggedIn.isLogin ? <LogoutButton/>: <LoginButton/> }
+        { authLoginState.loggedIn.isLogin ? <IsLogin/>: <IsLogout/> }
       {/* </AppStyle> */}
     </>
   );
