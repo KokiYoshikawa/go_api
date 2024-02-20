@@ -1,5 +1,8 @@
 import React from 'react';
-import { Layout, Button } from 'antd';
+import { Navigate } from 'react-router-dom'
+import type { MenuProps } from 'antd';
+import { Layout, Dropdown, Space } from 'antd';
+import { DownOutlined, SmileOutlined } from '@ant-design/icons';
 
 type Props = {
   children?: React.ReactNode
@@ -50,3 +53,43 @@ export const DefaultStyle:React.FC<Props> = (props) => {
 }
 
 export default DefaultStyle;
+
+export const AppStyle:React.FC<Props> = (props) => {
+  // const items: MenuProps['items'] = [
+  //   {
+  //     key: '1',
+  //     label: (
+  //       <>
+  //       <label>sss</label>
+  //       <Navigate to='/app'/>
+  //       </>
+  //     ),
+  //   },
+  //   {
+  //     key: '2',
+  //     label: (
+  //       <>
+  //       <label>sss</label>
+  //       <Navigate to='/app/user/login'/>
+  //       </>
+  //     ),
+  //   },
+  // ];
+  return (
+    <>
+      <Layout style={layoutStyle}>
+        <Header style={headerStyle}>
+          {/* <Dropdown menu={{ items }}>
+            <a onClick={(e) => e.preventDefault()}>
+              <Space>
+                <DownOutlined />
+              </Space>
+            </a>
+          </Dropdown> */}
+        </Header>
+        <Content style={contentStyle}>{props.children}</Content>
+        <Footer style={footerStyle}/>
+      </Layout>
+    </>
+  );
+}

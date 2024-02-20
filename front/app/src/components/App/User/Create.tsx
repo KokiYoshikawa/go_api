@@ -17,7 +17,7 @@ const AppUserCreate = () => {
     },)
     .then(function (response) {
       if (response.status === 201) {
-        navigate("/app/user/complete", { state: values })
+        navigate("/app/user/complete", { state: {user:values, word:"登録"} })
       } else {
         failure()
       }
