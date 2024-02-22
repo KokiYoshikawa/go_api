@@ -40,6 +40,13 @@ const Mypage = () => {
     });
   };
 
+  const ToDelete = () => {
+    navigate(`
+    /app/user/delete/${authLoginState.userAuth.userId}`,
+    { state: { userId: authLoginState.userAuth.userId, nickName: authLoginState.userAuth.nickName } },
+    )
+  }
+
   return (
     <>
       <label>ニックネーム：{authLoginState.userAuth.nickName}</label>
@@ -78,6 +85,10 @@ const Mypage = () => {
           </Button>
         </Form.Item>
       </Form>
+
+      <Button onClick = {()=> ToDelete()}>
+        削除
+      </Button>
 
       <Button onClick={()=>{navigate('/app')}}>
         戻る

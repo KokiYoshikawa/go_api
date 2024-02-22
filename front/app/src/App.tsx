@@ -7,6 +7,7 @@ import AppHome from './components/AppHome';
 import AppUserLogin from './components/App/User/Login';
 import AppUserLogout from './components/App/User/Logout';
 import AppUserCreate from './components/App/User/Create';
+import AppUserDelete from './components/App/User/Delete';
 import Mypage from './components/App/User/MyPage';
 import AppComplete from './components/App/User/Complete';
 import AdminHome from './components/AdminHome';
@@ -42,6 +43,7 @@ const App = () => {
               <Route path="/app/user/login" element={<AppUserLogin />} />
               <Route path="/app/user/logout" element={<AppUserLogout />} />
               <Route path="/app/user/create" element={<AppUserCreate />} />
+              <Route path="/app/user/delete" element={<AppUserDelete />} />
               <Route path="/app/user/complete" element={<AppComplete/>} />
               <Route path="/app/user/mypage" element={<Mypage/>} />
               <Route path="/admin" element={<AdminHome />} />
