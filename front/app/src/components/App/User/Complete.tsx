@@ -18,9 +18,9 @@ const AppUserComplete = () => {
   return (
     <>
       <DefaultLayout>
-        <label>登録が完了しました。</label>
-        <label>ニックネーム：{state.nickName}</label>
-        <label>パスワード{state.passWord}</label>
+        <label>{state.word}が完了しました。</label>
+        <label>ニックネーム：{state.user.nickName}</label>
+        <label>パスワード{state.user.passWord}</label>
 
         <div>
           <label>あと{countTime}秒でホーム画面に戻ります。</label>

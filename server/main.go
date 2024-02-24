@@ -48,6 +48,8 @@ func main() {
 		users.GET("/:id", user.GetUser())
 		users.GET("/list", user.GetUsers())
 		users.POST("/create", user.CreateUser())
+		users.POST("/login", user.Login())
+		users.POST("/update", user.UpdateUserPassword())
 		users.DELETE("/delete/:id", user.DeleteUser())
 	}
 
